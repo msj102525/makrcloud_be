@@ -11,7 +11,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-from app.api.endpoints import report
+from app.api.endpoints import root
+from app.api.endpoints import trademark
 from datetime import datetime
 
 # .env 파일에서 환경 변수 로드
@@ -120,7 +121,7 @@ logger = logging.getLogger(__name__)
 logger.info(f"Application starting in {ENV} mode")
 
 # FastAPI 애플리케이션 생성
-app = FastAPI()
+app = FastAPI(title="Trademark Search API")
 
 # CORS 설정 추가 (Cross-Origin Resource Sharing)
 app.add_middleware(
@@ -135,8 +136,9 @@ app.add_middleware(
 
 logger.info(f"ALLOWED_ORIGINS: {os.getenv('ALLOWED_ORIGINS', '')}")
 
-# API 라우터 등록 (report 관련 엔드포인트 추가)
-app.include_router(report.router, prefix="/report")
+# API 라우터 등록 (엔드포인트 추가)
+app.include_router(root.router, prefix="")
+app.include_router(trademark.router, prefix="/trademark")
 
 
 def filter_git_changes(changes):
@@ -153,7 +155,7 @@ if __name__ == "__main__":
 
     uvicorn.run(
         "app.main:app",
-        host="0.0.0.0",
+        host="localhost",
         port=8000,
         reload=True if ENV == "dev" else False,
         reload_dirs=(["app/"] if ENV == "dev" else None),

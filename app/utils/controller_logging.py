@@ -40,11 +40,10 @@ def log_request_end(endpoint: str, process_time: float, response_data):
 
 
 def log_error(
-    endpoint: str, store_business_id: str, process_time: float, error: Exception
+    endpoint: str, process_time: float, error: Exception
 ):
     """예외 발생 시 로깅"""
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
     error_msg = str(error)
     logger.error(f"[{timestamp}] ERROR in {process_time}s | Endpoint: {endpoint}")
-    logger.error(f"[{timestamp}] Business ID: {store_business_id}")
     logger.error(f"[{timestamp}] Error: {error_msg}")
