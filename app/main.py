@@ -1,10 +1,8 @@
-from logging.config import dictConfig
 import sys
+import uvicorn
 import os
 import logging
-from logging.handlers import TimedRotatingFileHandler
-
-from watchfiles import DefaultFilter
+from logging.config import dictConfig
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -15,17 +13,17 @@ from app.api.endpoints import root
 from app.api.endpoints import trademark
 from datetime import datetime
 
-# .env 파일에서 환경 변수 로드
 load_dotenv()
 
 # 환경 설정 - 개발 모드인지 배포 모드인지 확인
 # ENV 환경 변수가 없으면 기본값은 'dev'
 ENV = os.getenv("ENV", "dev").lower()
-print(f"Running in {ENV} mode")  # 현재 실행 모드 출력
+print(f"Running in {ENV} mode")
 
 # 로그 설정 기본값
 log_level = "DEBUG" if ENV == "dev" else "INFO"
-log_dir = "logs"  # 로그 파일이 저장될 디렉토리
+# 로그 파일이 저장될 디렉토리
+log_dir = "logs"
 
 # 로그 파일 이름에 날짜 추가 (예: logs/2025-03-21_app.log)
 log_filename = os.path.join(log_dir, f"{datetime.now().strftime('%Y-%m-%d')}_app.log")
@@ -126,9 +124,8 @@ app = FastAPI(title="Trademark Search API")
 # CORS 설정 추가 (Cross-Origin Resource Sharing)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.getenv("ALLOWED_ORIGINS", "").split(
-        ","
-    ),  # 환경 변수에서 허용된 오리진 목록 가져오기 (쉼표로 구분)
+    # 환경 변수에서 허용된 오리진 목록 가져오기 (쉼표로 구분)
+    allow_origins=os.getenv("ALLOWED_ORIGINS", "").split(","),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -149,9 +146,7 @@ def filter_git_changes(changes):
     }
 
 
-# 스크립트를 직접 실행할 때의 진입점
 if __name__ == "__main__":
-    import uvicorn
 
     uvicorn.run(
         "app.main:app",
