@@ -22,21 +22,19 @@ markcloude_be/
 ---
 
 ## 🚀 실행 순서
-
-# 터미널에서 프로젝트 경로로 이동 ex) D:\...\...\markcloude_be
-# python -m venv .venv  # 가상 환경 생성
-# .venv\Scripts\activate  # 가상 환경 활성화
-# python.exe -m pip install --upgrade pip
-# 프로젝트루트디렉토리에 .env 파일 생성 ENV=dev || ENV=dep 필수 X
-# pip install -r requirements.txt  # 필수 패키지 설치
-# 터미널 프로젝트루트디렉토리에서 python app/main.py 로 실행
-# python .\app\main.py
-# http://localhost:8000/docs Swagger 확인
-
-✨ 구현된 기능
-✅ 한글 또는 영문 상표명 기반 필터 검색 API
-
-✅ 상태별(등록, 출원, 거절 등) 상표 데이터 검색 API
+프로젝트 clone
+터미널에서 프로젝트 경로로 이동 ex) D:\...\...\markcloude_be
+python -m venv .venv  # 가상 환경 생성
+.venv\Scripts\activate  # 가상 환경 활성화
+python.exe -m pip install --upgrade pip
+프로젝트루트디렉토리에 .env 파일 생성 ENV=dev || ENV=dep 필수 X
+pip install -r requirements.txt  필수 패키지 설치
+터미널 프로젝트루트디렉토리에서 python app/main.py 로 실행
+python .\app\main.py
+http/localhost:8000/docs Swagger 확인
+구현된 기능
+✅ 한또는 영문 상표명 기반 필터 검색 API
+ 상태별(등록, 출원, 거절 등) 상표 데이터 검색 API
 
 📌 향후 검색 기능 추가 예정 (날짜 범위, 코드 기준 등)
 
